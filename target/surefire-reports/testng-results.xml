@@ -2,16 +2,23 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-05-28T12:58:36 BRT" name="API Automation Session Smoke Suite" finished-at="2026-05-28T12:58:38 BRT" duration-ms="1658">
+  <suite started-at="2026-05-28T13:11:13 BRT" name="API Automation Session Smoke Suite" finished-at="2026-05-28T13:11:14 BRT" duration-ms="1282">
     <groups>
+      <group name="users-sucess">
+        <method signature="GetUsersSucessTest.shouldGetUsersPage2()[pri:0, instance:userManagement.GetUsersSucessTest@5e955596]" name="shouldGetUsersPage2" class="userManagement.GetUsersSucessTest"/>
+      </group> <!-- users-sucess -->
     </groups>
-    <test started-at="2026-05-28T12:58:36 BRT" name="API Users TestCases" finished-at="2026-05-28T12:58:38 BRT" duration-ms="1658">
-      <class name="userManagement.GetUsers$Sucess">
-        <test-method signature="shouldGetUsersPage2()[pri:0, instance:userManagement.GetUsers$Sucess@133e16fd]" started-at="2026-05-28T12:58:36 BRT" name="shouldGetUsersPage2" finished-at="2026-05-28T12:58:38 BRT" duration-ms="1632" status="PASS">
+    <test started-at="2026-05-28T13:11:13 BRT" name="API Users TestCases" finished-at="2026-05-28T13:11:14 BRT" duration-ms="1282">
+      <class name="userManagement.GetUsersSucessTest">
+        <test-method is-config="true" signature="setup()[pri:0, instance:userManagement.GetUsersSucessTest@5e955596]" started-at="2026-05-28T13:11:13 BRT" name="setup" finished-at="2026-05-28T13:11:13 BRT" duration-ms="355" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method signature="shouldGetUsersPage2()[pri:0, instance:userManagement.GetUsersSucessTest@5e955596]" started-at="2026-05-28T13:11:13 BRT" name="shouldGetUsersPage2" description="Deve retornar usuários da página 2 com sucesso" finished-at="2026-05-28T13:11:14 BRT" duration-ms="1270" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- shouldGetUsersPage2 -->
-      </class> <!-- userManagement.GetUsers$Sucess -->
+      </class> <!-- userManagement.GetUsersSucessTest -->
     </test> <!-- API Users TestCases -->
   </suite> <!-- API Automation Session Smoke Suite -->
 </testng-results>
