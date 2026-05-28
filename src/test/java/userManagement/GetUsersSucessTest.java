@@ -1,6 +1,8 @@
 package userManagement;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.greaterThan;
 
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
@@ -22,17 +24,17 @@ public class GetUsersSucessTest {
     }
 
     @Test(description = "Deve retornar usuários da página 2 com sucesso", groups = "users-sucess")
-    public void shouldGetUsersPage2() {
+    public void shouldReturnUsersListSuccessfully() {
 
-        RestAssured.baseURI = ConfigManager.get("baseURI");
-        String apiKey = ConfigManager.get("api.key");
-
-        given()
-                .header("x-api-key", apiKey)
-                .when()
-                .get("/users?page=2")
-                .then()
-                .assertThat()
-                .statusCode(200);
+            given()
+                .spec(requestSpec)
+                .queryParam("page", 2)
+            .when()
+                .get("/users")
+            .then()
+                .statusCode(200)
+                .contentType("application/json; charset=utf-8")
+                .body("page", equalTo(2))
+                .body("data.size()", greaterThan(0));
     }
 }
