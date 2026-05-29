@@ -36,3 +36,7 @@ O projeto utiliza um arquivo de configuração local para armazenar variáveis s
 
 ## Execução dos testes
  ``` mvn clean test ```
+
+
+ ## Casos de teste
+ https://github.com/danielavescia/reqres-api-automation/wiki

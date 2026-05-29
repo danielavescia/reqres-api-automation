@@ -11,9 +11,7 @@ import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 import specs.RequestSpecFactory;
-
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
-
 public class GetUsersSucessTest {
 
     protected static RequestSpecification requestSpec;
