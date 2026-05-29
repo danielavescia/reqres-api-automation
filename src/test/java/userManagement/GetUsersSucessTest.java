@@ -6,11 +6,12 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import config.ConfigManager;
 import io.restassured.RestAssured;
-import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
+import specs.RequestSpecFactory;
+
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 public class GetUsersSucessTest {
@@ -23,10 +24,7 @@ public class GetUsersSucessTest {
     public void setup() {
         RestAssured.baseURI = ConfigManager.get("baseURI");
 
-        requestSpec = new RequestSpecBuilder()
-                .addHeader("x-api-key", ConfigManager.get("api.key"))
-                .setContentType(ContentType.JSON)
-                .build();
+        requestSpec = RequestSpecFactory.withValidApiKey();
 
         responseSpec = new ResponseSpecBuilder()
             .expectStatusCode(200)
