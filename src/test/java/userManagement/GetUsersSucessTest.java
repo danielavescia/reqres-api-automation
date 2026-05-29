@@ -32,7 +32,7 @@ public class GetUsersSucessTest {
             .build(); 
     }
 
-    @Test(description = "Deve retornar usuários da página 2 com sucesso", groups = "users-sucess")
+    @Test(description = "Deve retornar usuários da página 1 com sucesso", groups = "users-sucess")
     public void shouldReturnUsersListNotEmpty() {
 
         given()
@@ -45,37 +45,6 @@ public class GetUsersSucessTest {
             .body("page", equalTo(1))
             .body("data.size()", greaterThan(0));
     }
-
-    @Test(description = "Deve validar que todos os usuários possuem campos obrigatórios", groups = "users-sucess")
-    public void shouldValidateAllUsersFields() {
-
-        given()
-            .spec(requestSpec)
-            .queryParam("page", 1)
-        .when()
-            .get("/users")
-        .then()
-            .spec(responseSpec)
-            .body("data[0].id", notNullValue())
-            .body("data[0].email", notNullValue())
-            .body("data[0].first_name", notNullValue())
-            .body("data[0].last_name", notNullValue())
-            .body("data[0].avatar", notNullValue());
-    }
-
-    @Test(description = "Deve validar o schema da response de GET Usuário", groups = "users-sucess")
-    public void shouldValidateUsersSchema(){
-
-        given()
-            .spec(requestSpec)
-            .queryParam("page", 2)
-        .when() 
-            .get("/users")
-        .then()
-            .spec(responseSpec)
-            .body(matchesJsonSchemaInClasspath("schemas/users-schema.json"));
-    }
-
 
     @Test(description = "Deve validar os campos obrigatórios de Usuário", groups = "users-sucess")
     public void shouldValidateUsersData(){
@@ -92,5 +61,46 @@ public class GetUsersSucessTest {
             .body("data.first_name", everyItem(notNullValue()))
             .body("data.last_name", everyItem(notNullValue()))
             .body("data.avatar", everyItem(notNullValue()));
+    }
+
+    @Test(description = "Deve validar o schema da response de GET Usuário", groups = "users-sucess")
+    public void shouldValidateUsersSchema(){
+
+        given()
+            .spec(requestSpec)
+            .queryParam("page", 2)
+        .when() 
+            .get("/users")
+        .then()
+            .spec(responseSpec)
+            .body(matchesJsonSchemaInClasspath("schemas/users-schema.json"));
+    }
+
+    @Test(description = "Validar consistência de paginação", groups = "users-sucess")
+    public void shouldValidatePagination(){
+        
+        given()
+            .spec(requestSpec)
+            .queryParam("page", 1)
+        .when()
+            .get("/users")
+
+        .then() 
+            .spec(responseSpec)
+            .body("page", equalTo(1))
+            .body("per_page", equalTo(6))
+            .body("data.size()", greaterThan(0))
+            .body("data.size()", lessThanOrEqualTo(6));
+    }
+
+    @Test(description = "Validar tempo de resposta da API dentro do limite estabelecido", groups = "users-sucess")
+    public void shouldValidateResponseTime(){
+        given()
+            .spec(requestSpec)
+        .when()
+            .get("/users")
+        .then()
+            .spec(responseSpec)
+            .time(lessThan(2000L));
     }
 }
