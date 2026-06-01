@@ -1,7 +1,9 @@
 package userManagement;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.notNullValue;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+import static org.hamcrest.Matchers.emptyString;
+import static org.hamcrest.Matchers.not;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import config.ConfigManager;
@@ -15,9 +17,11 @@ import specs.RequestSpecFactory;
 
 public class PostUserSucess {
 
-    protected static RequestSpecification requestSpec;
+    protected  RequestSpecification requestSpec;
 
-    protected static ResponseSpecification responseSpec;
+    protected  RequestBodyRegister requestBody;
+
+    protected  ResponseSpecification responseSpec;
 
     @BeforeClass
     public void setup() {
@@ -29,22 +33,45 @@ public class PostUserSucess {
             .expectStatusCode(200)
             .expectContentType(ContentType.JSON)
             .build(); 
+
+        requestBody = new RequestBodyRegister();
+        requestBody.setEmail("eve.holt@reqres.in");
+        requestBody.setPassword("pistol");
     }
 
-    @Test(description = "Criar Usuário com Sucesso", groups = "users-sucess")
-    public void ShouldCreateUserSuccesfully(){
-
-        RequestBodyRegister postBody = new RequestBodyRegister();
-        postBody.setEmail("eve.holt@reqres.in");
-        postBody.setPassword("pistol");
+    @Test(description = "Deve retornar 200 e Content-Type JSON", groups = "register-sucess")
+    public void shouldCreateUserSuccesfully(){
 
         given()
-            .spec(RequestSpecFactory.withValidApiKey())
-            .body(postBody)
+            .spec(requestSpec)
+            .body(requestBody)
+        .when()
+            .post("/register")
+        .then()
+            .spec(responseSpec);
+    }
+
+    @Test(description = "Deve retornar 200 e schema completo", groups ="register-sucess")
+    public void shouldMatchResponseSchema(){
+        given()
+            .spec(requestSpec)
+            .body(requestBody)
         .when()
             .post("/register")
         .then()
             .spec(responseSpec)
-            .body("token", notNullValue());
+            .body(matchesJsonSchemaInClasspath("schemas/register-success-schema.json"));
+    }
+
+    @Test(description = "Deve retornar 200 e token não vazio", groups ="register-sucess")
+    public void shouldReturnNonEmptyToken(){
+        given()
+            .spec(requestSpec)
+            .body(requestBody)
+        .when()
+            .post("/register")
+        .then()
+            .spec(responseSpec)
+            .body("token", not(emptyString()));
     }
 }
