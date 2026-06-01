@@ -34,7 +34,7 @@
         <version>3.0.0-M1</version>
         <configuration>
           <suiteXmlFiles>
-            <suiteXmlFile>src/test/resources/TestSuites/ClassLevelSuite.xml</suiteXmlFile>
+            <suiteXmlFile>resources//TestSuites//ClassLevelSuite.xml</suiteXmlFile>
           </suiteXmlFiles>
         </configuration>
       </plugin>
