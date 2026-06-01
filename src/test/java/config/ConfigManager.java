@@ -25,6 +25,13 @@ public class ConfigManager {
     }
 
     public static String get(String key) {
+        
+        String envValue = System.getenv(key.toUpperCase().replace(".", "_"));
+
+        if(envValue != null && !envValue.isEmpty()){
+            return envValue;
+        }
+        
         String value = properties.getProperty(key);
 
         if (value == null || value.isEmpty()) {
