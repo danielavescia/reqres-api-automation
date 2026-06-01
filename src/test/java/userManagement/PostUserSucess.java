@@ -7,19 +7,17 @@ import static org.hamcrest.Matchers.not;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import config.ConfigManager;
+import factory.RegisterBodyFactory;
 import io.restassured.RestAssured;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
-import pojo.users.RequestBodyRegister;
 import specs.RequestSpecFactory;
 
 public class PostUserSucess {
 
     protected  RequestSpecification requestSpec;
-
-    protected  RequestBodyRegister requestBody;
 
     protected  ResponseSpecification responseSpec;
 
@@ -33,10 +31,6 @@ public class PostUserSucess {
             .expectStatusCode(200)
             .expectContentType(ContentType.JSON)
             .build(); 
-
-        requestBody = new RequestBodyRegister();
-        requestBody.setEmail("eve.holt@reqres.in");
-        requestBody.setPassword("pistol");
     }
 
     @Test(description = "Deve retornar 200 e Content-Type JSON", groups = "register-sucess")
@@ -44,7 +38,7 @@ public class PostUserSucess {
 
         given()
             .spec(requestSpec)
-            .body(requestBody)
+            .body(RegisterBodyFactory.validBody())
         .when()
             .post("/register")
         .then()
@@ -55,7 +49,7 @@ public class PostUserSucess {
     public void shouldMatchResponseSchema(){
         given()
             .spec(requestSpec)
-            .body(requestBody)
+            .body(RegisterBodyFactory.validBody())
         .when()
             .post("/register")
         .then()
@@ -67,7 +61,7 @@ public class PostUserSucess {
     public void shouldReturnNonEmptyToken(){
         given()
             .spec(requestSpec)
-            .body(requestBody)
+            .body(RegisterBodyFactory.validBody())
         .when()
             .post("/register")
         .then()
