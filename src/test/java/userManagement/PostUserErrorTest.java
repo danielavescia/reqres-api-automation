@@ -1,0 +1,33 @@
+package userManagement;
+
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
+
+import org.testng.annotations.Test;
+
+import pojo.users.RequestBodyRegister;
+import specs.RequestSpecFactory;
+
+public class PostUserErrorTest {
+
+    private RequestBodyRegister validBody(){
+        RequestBodyRegister requestBody = new RequestBodyRegister();
+        requestBody.setEmail("eve.holt@reqres.in");
+        requestBody.setPassword("pistol"); 
+
+        return requestBody;
+    }
+
+    @Test(description = "Deve retorna 401 quando API Key estiver ausente", groups ="error-register")
+    public void shouldReturnUnauthorizedWhenApiKeyIsMissing(){
+        given()
+            .spec(RequestSpecFactory.withoutApiKey())
+            .body(validBody())
+        .when()
+            .post("/register")
+        .then()
+            .statusCode(401)
+            .body("error", equalTo("missing_api_key"))
+            .body("message", equalTo("The x-api-key header is required for this endpoint."));
+    }
+}
