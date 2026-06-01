@@ -1,9 +1,9 @@
 package userManagement;
 
 import static io.restassured.RestAssured.given;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.hamcrest.Matchers.equalTo;
 import org.testng.annotations.Test;
-
 import factory.RegisterBodyFactory;
 import specs.RequestSpecFactory;
 
@@ -57,5 +57,41 @@ public class PostUserErrorTest {
         .then()
             .statusCode(400)
             .body("error", equalTo("Missing email or username"));      
+    }
+
+    @Test(description = "Deve retorna 400 sem body", groups ="error-register")
+    public void shouldReturn400WhenBodyIsEmpty(){
+        given()
+            .spec(RequestSpecFactory.withValidApiKey())
+            .body(RegisterBodyFactory.emptyBody())
+        .when()
+            .post("/register")
+        .then()
+            .statusCode(400)
+            .body("error", equalTo("Missing email or username"));      
+    }
+
+    @Test(description = "Deve retorna 400 devido e-mail com formato inválido", groups ="error-register")
+    public void shouldReturn400WhenInvalidEmailFormat(){
+        given()
+            .spec(RequestSpecFactory.withValidApiKey())
+            .body(RegisterBodyFactory.invalidEmailFormat())
+        .when()
+            .post("/register")
+        .then()
+            .statusCode(400)
+            .body("error", equalTo("Note: Only defined users succeed registration"));      
+    }
+
+    @Test(description = "Deve validar o schema da error response", groups ="error-register")
+    public void shouldValidateErrorSchema(){
+        given()
+            .spec(RequestSpecFactory.withValidApiKey())
+            .body(RegisterBodyFactory.missingPassword())
+        .when()
+            .post("/register")
+        .then()
+            .statusCode(400)
+            .body(matchesJsonSchemaInClasspath("schemas/register-error-schema.json"));  
     }
 }
