@@ -7,12 +7,12 @@ import static org.hamcrest.Matchers.not;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import config.ConfigManager;
+import factory.RegisterBodyFactory;
 import io.restassured.RestAssured;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
-import specs.RegisterBodyFactory;
 import specs.RequestSpecFactory;
 
 public class PostUserSucess {

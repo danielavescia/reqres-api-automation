@@ -3,7 +3,8 @@ package userManagement;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import org.testng.annotations.Test;
-import specs.RegisterBodyFactory;
+
+import factory.RegisterBodyFactory;
 import specs.RequestSpecFactory;
 
 public class PostUserErrorTest {
@@ -32,5 +33,29 @@ public class PostUserErrorTest {
             .statusCode(403)
             .body("error", equalTo("invalid_api_key"))
             .body("message", equalTo("This API key is not recognized or has been revoked."));
+    }
+
+    @Test(description = "Deve retorna 400 sem campo password", groups ="error-register")
+    public void shouldReturn400WhenPasswordIsMissing(){
+        given()
+            .spec(RequestSpecFactory.withValidApiKey())
+            .body(RegisterBodyFactory.missingPassword())
+        .when()
+            .post("/register")
+        .then()
+            .statusCode(400)
+            .body("error", equalTo("Missing password"));      
+    }
+
+    @Test(description = "Deve retorna 400 sem campo email", groups ="error-register")
+    public void shouldReturn400WhenEmailIsMissing(){
+        given()
+            .spec(RequestSpecFactory.withValidApiKey())
+            .body(RegisterBodyFactory.missingEmail())
+        .when()
+            .post("/register")
+        .then()
+            .statusCode(400)
+            .body("error", equalTo("Missing email or username"));      
     }
 }
