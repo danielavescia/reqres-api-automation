@@ -1,37 +1,37 @@
 package factory;
 
 import pojo.users.RequestBodyRegister;
+import utils.JsonReader;
 
 public class RegisterBodyFactory {
 
     private RegisterBodyFactory(){}
 
     public static RequestBodyRegister validBody(){
-        RequestBodyRegister requestBody = new RequestBodyRegister();
-        requestBody.setEmail("eve.holt@reqres.in");
-        requestBody.setPassword("pistol"); 
-
-        return requestBody;
+        
+         return JsonReader.read(
+            "registerRequestBody.json",
+            RequestBodyRegister.class
+        );
     }
 
     public static RequestBodyRegister missingPassword(){
-        RequestBodyRegister requestBody = new RequestBodyRegister();
-        requestBody.setEmail("eve.holt@reqres.in");
+        RequestBodyRegister requestBody = validBody();
+        requestBody.setPassword(null);
 
         return requestBody;
     }
 
    public static RequestBodyRegister missingEmail(){
-        RequestBodyRegister requestBody = new RequestBodyRegister();
-        requestBody.setPassword("pistol"); 
+        RequestBodyRegister requestBody = validBody();
+        requestBody.setEmail(null); 
 
         return requestBody;
     }
 
     public static RequestBodyRegister invalidEmailFormat(){
-        RequestBodyRegister requestBody = new RequestBodyRegister();
+        RequestBodyRegister requestBody = validBody();
         requestBody.setEmail("eve@");
-        requestBody.setPassword("pistol"); 
 
         return requestBody;
     }
