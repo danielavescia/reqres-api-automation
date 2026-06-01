@@ -30,4 +30,17 @@ public class PostUserErrorTest {
             .body("error", equalTo("missing_api_key"))
             .body("message", equalTo("The x-api-key header is required for this endpoint."));
     }
+
+    @Test(description = "Deve retorna 403 quando API Key é inválida", groups ="error-register")
+    public void shouldReturnForbiddenWhenApiKeyIsInvalid(){
+        given()
+            .spec(RequestSpecFactory.withInvalidApiKey())
+            .body(validBody())
+        .when()
+            .post("/register")
+        .then()
+            .statusCode(403)
+            .body("error", equalTo("invalid_api_key"))
+            .body("message", equalTo("This API key is not recognized or has been revoked."));
+    }
 }
