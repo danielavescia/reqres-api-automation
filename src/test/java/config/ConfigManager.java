@@ -17,8 +17,6 @@ public class ConfigManager {
                 properties.load(input);
             }
 
-            properties.load(input);
-
         } catch (Exception e) {
             throw new RuntimeException("Erro ao carregar config.properties", e);
         }
