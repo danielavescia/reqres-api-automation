@@ -21,10 +21,7 @@ Validar endpoints da API ReqRes com testes automatizados, cobrindo:
 
 * Users
 - Listagem de usuários
-- Busca de usuário por ID
 - Criação de usuário
-- Atualização de usuário (PUT/PATCH)
-- Remoção de usuário
 - Cenários de erro (404, validações, etc.)
 
 ---
