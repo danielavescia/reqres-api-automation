@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="API Automation Session Smoke Suite">
-    <test name="API Users TestCases">
+ <test name="Regression Tests">
         <groups>
             <run>
-                <include name="RegressionSuite"/>
+                <include name="regression"/>
             </run>
         </groups>
         <classes>
-            <class name="userManagement.getUsers" />
-            <class name="userManagement.getErgast" />
+            <class name="userManagement.GetUsersErrorTest"/>
+            <class name="userManagement.PostUserErrorTest"/>
         </classes>
     </test>
+
 </suite>

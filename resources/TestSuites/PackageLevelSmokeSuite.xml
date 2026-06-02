@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="API Automation Session Smoke Suite" parallel="tests" thread-count="2">
-    <test name="Automation Test Get Users">
+    <test name="Smoke Tests">
+        <groups>
+            <run>
+                <include name="smoke"/>
+            </run>
+        </groups>
         <classes>
-            <class name="userManagement.GetUsersSuccessTest"/>
-            <class name="userManagement.GetUsersErrorTest"/>
-        </classes>
-    </test>
-    <test name="Automation Test Post User Tests">
-        <classes>
-            <class name="userManagement.PostUserSuccessTest"/>
-            <class name="userManagement.PostUserErrorTest"/>
+            <class name="userManagement.GetUsersSucessTest"/>
+            <class name="userManagement.GetUserSucessTest"/>
+            <class name="userManagement.PostUserSucessTest"/>
         </classes>
     </test>
 </suite>
