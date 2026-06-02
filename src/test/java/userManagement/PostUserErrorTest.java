@@ -3,11 +3,19 @@ package userManagement;
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.hamcrest.Matchers.equalTo;
+import io.restassured.RestAssured;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import config.ConfigManager;
 import factory.RegisterBodyFactory;
 import specs.RequestSpecFactory;
 
 public class PostUserErrorTest {
+
+    @BeforeClass
+    public void setup() {
+        RestAssured.baseURI = ConfigManager.get("base.url");
+    }
 
     @Test(description = "Deve retorna 401 quando API Key estiver ausente", groups ="error-register")
     public void shouldReturnUnauthorizedWhenApiKeyIsMissing(){

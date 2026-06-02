@@ -13,11 +13,9 @@ public class ConfigManager {
                     .getClassLoader()
                     .getResourceAsStream("config.properties");
 
-            if (input == null) {
-                throw new RuntimeException("Arquivo config.properties não encontrado");
+            if (input != null) {
+                properties.load(input);
             }
-
-            properties.load(input);
 
         } catch (Exception e) {
             throw new RuntimeException("Erro ao carregar config.properties", e);
@@ -25,7 +23,7 @@ public class ConfigManager {
     }
 
     public static String get(String key) {
-        
+
         String envValue = System.getenv(key.toUpperCase().replace(".", "_"));
 
         if(envValue != null && !envValue.isEmpty()){

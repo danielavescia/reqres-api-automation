@@ -20,7 +20,7 @@ public class GetUsersSucessTest {
 
     @BeforeClass
     public void setup() {
-        RestAssured.baseURI = ConfigManager.get("baseURI");
+        RestAssured.baseURI = ConfigManager.get("base.url");
 
         requestSpec = RequestSpecFactory.withValidApiKey();
 

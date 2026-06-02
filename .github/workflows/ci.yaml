@@ -2,29 +2,32 @@ name: ReqRes API Testing CI
 
 on:
   push:
-    branches: ["dev"]
+    branches:
+      - dev
 
   pull_request:
-    branches: ["main"]
+    branches:
+      - main
+
+  workflow_dispatch:
 
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout código 
+      - name: Checkout código
         uses: actions/checkout@v4
 
       - name: Setup Java 11
         uses: actions/setup-java@v4
-
-      - name: Cache Maven
-        uses: actions/cache@v4
         with:
-          path: ~/.m2
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          distribution: 'temurin'
+          java-version: '11'
+          cache: 'maven'
 
       - name: Rodar testes
-        run: mvn clean test 
+        run: mvn clean test
         env:
           API_KEY: ${{ secrets.API_KEY }}
+          BASE_URL: ${{ secrets.BASE_URL }}

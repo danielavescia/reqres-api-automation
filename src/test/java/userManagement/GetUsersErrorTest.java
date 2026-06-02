@@ -13,7 +13,7 @@ public class GetUsersErrorTest {
 
     @BeforeClass
     public void setup() {
-        RestAssured.baseURI = ConfigManager.get("baseURI");
+        RestAssured.baseURI = ConfigManager.get("base.url");
     }
 
     @Test(description = "Deve retornar lista vazia para página inexistente", groups = "error-users")
