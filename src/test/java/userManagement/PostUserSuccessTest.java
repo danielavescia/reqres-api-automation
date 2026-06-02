@@ -15,7 +15,7 @@ import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 import specs.RequestSpecFactory;
 
-public class PostUserSucessTest {
+public class PostUserSuccessTest {
 
     protected  RequestSpecification requestSpec;
 

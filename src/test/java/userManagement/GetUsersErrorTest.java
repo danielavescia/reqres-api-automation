@@ -16,7 +16,7 @@ public class GetUsersErrorTest {
         RestAssured.baseURI = ConfigManager.get("base.url");
     }
 
-    @Test(description = "Deve retornar lista vazia para página inexistente", groups = "error-users")
+    @Test(description = "Deve retornar lista vazia para página inexistente", groups = {"regression", "error-users"})
     public void shouldReturnEmptyListForNonExistingPage(){
         given()
             .spec(RequestSpecFactory.withValidApiKey())
@@ -28,7 +28,7 @@ public class GetUsersErrorTest {
             .body("data", empty());
     }
 
-    @Test(description = "Deve retornar 401 quando API Key estiver ausente", groups = "error-users")
+    @Test(description = "Deve retornar 401 quando API Key estiver ausente", groups = {"regression", "error-users"})
     public void shouldReturnUnauthorizedWhenApiKeyIsMissing(){
         given()
             .spec(RequestSpecFactory.withoutApiKey())
@@ -42,7 +42,7 @@ public class GetUsersErrorTest {
             .body("message", equalTo("The x-api-key header is required for this endpoint."));
     }
 
-    @Test(description = "Deve retornar 403 quando API Key for inválida", groups = "error-users")
+    @Test(description = "Deve retornar 403 quando API Key for inválida", groups = {"regression", "error-users"})
     public void shouldReturnForbiddenWhenApiKeyIsInvalid(){
         given()
             .spec(RequestSpecFactory.withInvalidApiKey())

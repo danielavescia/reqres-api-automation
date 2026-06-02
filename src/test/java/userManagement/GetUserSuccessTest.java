@@ -2,7 +2,7 @@ package userManagement;
 
 import io.restassured.specification.RequestSpecification;
 
-public class GetUserSucessTest {
+public class GetUserSuccessTest {
    
     protected  RequestSpecification requestSpec;
 
