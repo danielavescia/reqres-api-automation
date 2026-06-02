@@ -17,7 +17,7 @@ public class PostUserErrorTest {
         RestAssured.baseURI = ConfigManager.get("base.url");
     }
 
-    @Test(description = "Deve retorna 401 quando API Key estiver ausente", groups ="error-register")
+    @Test(description = "Deve retorna 401 quando API Key estiver ausente", groups = {"error-register", "regression"})
     public void shouldReturnUnauthorizedWhenApiKeyIsMissing(){
         given()
             .spec(RequestSpecFactory.withoutApiKey())
@@ -30,7 +30,7 @@ public class PostUserErrorTest {
             .body("message", equalTo("The x-api-key header is required for this endpoint."));
     }
 
-    @Test(description = "Deve retorna 403 quando API Key é inválida", groups ="error-register")
+    @Test(description = "Deve retorna 403 quando API Key é inválida", groups = {"error-register", "regression"})
     public void shouldReturnForbiddenWhenApiKeyIsInvalid(){
         given()
             .spec(RequestSpecFactory.withInvalidApiKey())
@@ -43,7 +43,7 @@ public class PostUserErrorTest {
             .body("message", equalTo("This API key is not recognized or has been revoked."));
     }
 
-    @Test(description = "Deve retorna 400 sem campo password", groups ="error-register")
+    @Test(description = "Deve retorna 400 sem campo password", groups = {"error-register", "regression"})
     public void shouldReturn400WhenPasswordIsMissing(){
         given()
             .spec(RequestSpecFactory.withValidApiKey())
@@ -55,7 +55,7 @@ public class PostUserErrorTest {
             .body("error", equalTo("Missing password"));      
     }
 
-    @Test(description = "Deve retorna 400 sem campo email", groups ="error-register")
+    @Test(description = "Deve retorna 400 sem campo email", groups = {"error-register", "regression"})
     public void shouldReturn400WhenEmailIsMissing(){
         given()
             .spec(RequestSpecFactory.withValidApiKey())
@@ -67,7 +67,7 @@ public class PostUserErrorTest {
             .body("error", equalTo("Missing email or username"));      
     }
 
-    @Test(description = "Deve retorna 400 sem body", groups ="error-register")
+    @Test(description = "Deve retorna 400 sem body", groups = {"error-register", "regression"})
     public void shouldReturn400WhenBodyIsEmpty(){
         given()
             .spec(RequestSpecFactory.withValidApiKey())
@@ -79,7 +79,7 @@ public class PostUserErrorTest {
             .body("error", equalTo("Missing email or username"));      
     }
 
-    @Test(description = "Deve retorna 400 devido e-mail com formato inválido", groups ="error-register")
+    @Test(description = "Deve retorna 400 devido e-mail com formato inválido",groups = {"error-register", "regression"})
     public void shouldReturn400WhenInvalidEmailFormat(){
         given()
             .spec(RequestSpecFactory.withValidApiKey())
@@ -91,7 +91,7 @@ public class PostUserErrorTest {
             .body("error", equalTo("Note: Only defined users succeed registration"));      
     }
 
-    @Test(description = "Deve validar o schema da error response", groups ="error-register")
+    @Test(description = "Deve validar o schema da error response", groups = {"error-register", "regression"})
     public void shouldValidateErrorSchema(){
         given()
             .spec(RequestSpecFactory.withValidApiKey())

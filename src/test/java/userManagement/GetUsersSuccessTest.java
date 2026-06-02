@@ -30,7 +30,7 @@ public class GetUsersSuccessTest {
             .build(); 
     }
 
-    @Test(description = "Deve retornar usuários da página 1 com sucesso", groups = "users-sucess")
+    @Test(description = "Deve retornar usuários da página 1 com sucesso", groups = {"users-success, smoke"})
     public void shouldReturnUsersListNotEmpty() {
 
         given()
@@ -44,7 +44,7 @@ public class GetUsersSuccessTest {
             .body("data.size()", greaterThan(0));
     }
 
-    @Test(description = "Deve validar os campos obrigatórios de Usuário", groups = "users-sucess")
+    @Test(description = "Deve validar os campos obrigatórios de Usuário", groups = {"users-success, smoke"})
     public void shouldValidateUsersData(){
         
         given()
@@ -61,7 +61,7 @@ public class GetUsersSuccessTest {
             .body("data.avatar", everyItem(notNullValue()));
     }
 
-    @Test(description = "Deve validar o schema da response de GET Usuário", groups = "users-sucess")
+    @Test(description = "Deve validar o schema da response de GET Usuário", groups = {"users-success, smoke"})
     public void shouldValidateUsersSchema(){
 
         given()
@@ -74,7 +74,7 @@ public class GetUsersSuccessTest {
             .body(matchesJsonSchemaInClasspath("schemas/users-schema.json"));
     }
 
-    @Test(description = "Validar consistência de paginação", groups = "users-sucess")
+    @Test(description = "Validar consistência de paginação", groups = {"users-success, smoke"})
     public void shouldValidatePagination(){
         
         given()
@@ -91,7 +91,7 @@ public class GetUsersSuccessTest {
             .body("data.size()", lessThanOrEqualTo(6));
     }
 
-    @Test(description = "Validar tempo de resposta da API dentro do limite estabelecido", groups = "users-sucess")
+    @Test(description = "Validar tempo de resposta da API dentro do limite estabelecido", groups = {"users-success, smoke"})
     public void shouldValidateResponseTime(){
         given()
             .spec(requestSpec)
