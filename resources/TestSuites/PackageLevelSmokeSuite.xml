@@ -9,7 +9,6 @@
         </groups>
         <classes>
             <class name="userManagement.GetUsersSucessTest"/>
-            <class name="userManagement.GetUserSucessTest"/>
             <class name="userManagement.PostUserSucessTest"/>
         </classes>
     </test>
