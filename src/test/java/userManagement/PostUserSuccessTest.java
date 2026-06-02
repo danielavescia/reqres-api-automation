@@ -15,7 +15,7 @@ import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 import specs.RequestSpecFactory;
 
-public class PostUserSucessTest {
+public class PostUserSuccessTest {
 
     protected  RequestSpecification requestSpec;
 
@@ -33,7 +33,7 @@ public class PostUserSucessTest {
             .build(); 
     }
 
-    @Test(description = "Deve retornar 200 e Content-Type JSON", groups = "register-sucess")
+    @Test(description = "Deve retornar 200 e Content-Type JSON", groups ={"register-success", "smoke"})
     public void shouldCreateUserSuccesfully(){
 
         given()
@@ -45,7 +45,7 @@ public class PostUserSucessTest {
             .spec(responseSpec);
     }
 
-    @Test(description = "Deve retornar 200 e schema completo", groups ="register-sucess")
+    @Test(description = "Deve retornar 200 e schema completo", groups ={"register-success", "smoke"})
     public void shouldMatchResponseSchema(){
         given()
             .spec(requestSpec)
@@ -57,7 +57,7 @@ public class PostUserSucessTest {
             .body(matchesJsonSchemaInClasspath("schemas/register-success-schema.json"));
     }
 
-    @Test(description = "Deve retornar 200 e token não vazio", groups ="register-sucess")
+    @Test(description = "Deve retornar 200 e token não vazio", groups ={"register-success", "smoke"})
     public void shouldReturnNonEmptyToken(){
         given()
             .spec(requestSpec)
