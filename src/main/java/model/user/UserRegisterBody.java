@@ -1,6 +1,6 @@
-package pojo.users;
+package model.user;
 
-public class RequestBodyRegister {
+public class UserRegisterBody{
 
     private String email;
 

@@ -8,7 +8,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import config.ConfigManager;
 import factory.RegisterBodyFactory;
-import specs.RequestSpecFactory;
+import factory.RequestSpecFactory;
 
 public class PostUserErrorTest {
 

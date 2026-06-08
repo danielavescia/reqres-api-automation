@@ -5,8 +5,8 @@ import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.equalTo;
 import org.testng.annotations.BeforeClass;
 import config.ConfigManager;
+import factory.RequestSpecFactory;
 import io.restassured.RestAssured;
-import specs.RequestSpecFactory;
 import org.testng.annotations.Test;
 
 public class GetUsersErrorTest {
