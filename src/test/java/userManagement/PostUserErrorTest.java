@@ -1,6 +1,5 @@
 package userManagement;
 
-import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.hamcrest.Matchers.equalTo;
 import io.restassured.specification.RequestSpecification;
@@ -33,15 +32,10 @@ public class PostUserErrorTest extends BaseTest {
                 .body("error", equalTo(errorMessage));
     }
 
-    @Test(description = "Deve validar o schema da error response", groups = { "error-register", "regression" })
-    public void shouldValidateErrorSchema() {
-        given()
-                .spec(RequestSpecFactory.withValidApiKey())
-                .body(RegisterBodyFactory.missingPassword())
-                .when()
-                .post("/register")
-                .then()
-                .statusCode(400)
-                .body(matchesJsonSchemaInClasspath("schemas/register-error-schema.json"));
+    @Test(description = "Deve validar o schema da error response", dataProvider = "InvalidRegisterPayload", dataProviderClass = TestDataProvider.class, groups = { "error-register", "regression" })
+    public void shouldValidateErrorSchema(UserRegisterBody body, int statusCode, String errorMessage) {
+      userClient.createUser(RequestSpecFactory.withValidApiKey(), body)
+        .statusCode(statusCode)
+        .body(matchesJsonSchemaInClasspath("schemas/register-error-schema.json"));
     }
 }

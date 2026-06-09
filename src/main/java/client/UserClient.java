@@ -24,7 +24,7 @@ public class UserClient {
             .spec(requestSpec)
             .body(body)
         .when()
-            .post("register")
+            .post("/register")
         .then();
     }
 }
