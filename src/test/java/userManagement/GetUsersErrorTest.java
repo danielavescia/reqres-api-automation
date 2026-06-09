@@ -1,58 +1,33 @@
 package userManagement;
 
-import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.equalTo;
-import org.testng.annotations.BeforeClass;
-import config.ConfigManager;
 import factory.RequestSpecFactory;
-import io.restassured.RestAssured;
+import io.restassured.specification.RequestSpecification;
+import provider.TestDataProvider;
 import org.testng.annotations.Test;
+import base.BaseTest;
+import client.UserClient;
 
-public class GetUsersErrorTest {
+public class GetUsersErrorTest extends BaseTest {
 
-    @BeforeClass
-    public void setup() {
-        RestAssured.baseURI = ConfigManager.get("base.url");
+    UserClient userClient = new UserClient();
+
+    @Test(description = "Deve retornar lista vazia para página inexistente", groups = { "regression", "error-users" })
+    public void shouldReturnEmptyListForNonExistingPage() {
+
+        userClient.getUsers(RequestSpecFactory.withValidApiKey(), 9999)
+                .statusCode(200)
+                .body("data", empty());
     }
 
-    @Test(description = "Deve retornar lista vazia para página inexistente", groups = {"regression", "error-users"})
-    public void shouldReturnEmptyListForNonExistingPage(){
-        given()
-            .spec(RequestSpecFactory.withValidApiKey())
-            .queryParam("page", 9999)
-        .when()
-            .get("/users")
-        .then()
-            .statusCode(200)
-            .body("data", empty());
-    }
+    @Test(description = "Deve retornar 401 quando API Key estiver ausente e 403 quando inválida", dataProvider = "unathorizedRequests", dataProviderClass = TestDataProvider.class, groups = {
+            "regression", "error-users" })
+    public void shouldReturnErrorWhenApiKeyIsInvalidOrMissing(RequestSpecification request, int statusCode,
+            String errorMessage) {
 
-    @Test(description = "Deve retornar 401 quando API Key estiver ausente", groups = {"regression", "error-users"})
-    public void shouldReturnUnauthorizedWhenApiKeyIsMissing(){
-        given()
-            .spec(RequestSpecFactory.withoutApiKey())
-            .queryParam("page", 1)
-            .queryParam("_t", System.currentTimeMillis())
-        .when()
-            .get("/users")
-        .then()
-            .statusCode(401)
-            .body("error", equalTo("missing_api_key"))
-            .body("message", equalTo("The x-api-key header is required for this endpoint."));
-    }
-
-    @Test(description = "Deve retornar 403 quando API Key for inválida", groups = {"regression", "error-users"})
-    public void shouldReturnForbiddenWhenApiKeyIsInvalid(){
-        given()
-            .spec(RequestSpecFactory.withInvalidApiKey())
-            .queryParam("page", 1)
-            .queryParam("_t", System.currentTimeMillis())
-        .when()
-            .get("/users")
-        .then()
-            .statusCode(403)
-            .body("error", equalTo("invalid_api_key"))
-            .body("message", equalTo("This API key is not recognized or has been revoked."));
+        userClient.getUsers(request, 2)
+                .statusCode(statusCode)
+                .body("message", equalTo(errorMessage));
     }
 }
