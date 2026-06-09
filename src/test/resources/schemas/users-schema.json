@@ -21,19 +21,24 @@
           "type": "object",
           "properties": {
             "id": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 1
             },
             "email": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1
             },
             "first_name": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1
             },
             "last_name": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1
             },
             "avatar": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1
             }
           },
           "required": [
@@ -48,19 +53,24 @@
           "type": "object",
           "properties": {
             "id": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 1
             },
             "email": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1
             },
             "first_name": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1
             },
             "last_name": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1
             },
             "avatar": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1
             }
           },
           "required": [
@@ -75,19 +85,24 @@
           "type": "object",
           "properties": {
             "id": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 1
             },
             "email": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1
             },
             "first_name": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1
             },
             "last_name": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1
             },
             "avatar": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1
             }
           },
           "required": [
@@ -102,19 +117,24 @@
           "type": "object",
           "properties": {
             "id": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 1
             },
             "email": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1
             },
             "first_name": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1
             },
             "last_name": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1
             },
             "avatar": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1
             }
           },
           "required": [
@@ -129,19 +149,24 @@
           "type": "object",
           "properties": {
             "id": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 1
             },
             "email": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1
             },
             "first_name": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1
             },
             "last_name": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1
             },
             "avatar": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1
             }
           },
           "required": [
@@ -152,23 +177,28 @@
             "avatar"
           ]
         },
-        {
+          {
           "type": "object",
           "properties": {
             "id": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 1
             },
             "email": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1
             },
             "first_name": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1
             },
             "last_name": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1
             },
             "avatar": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1
             }
           },
           "required": [
