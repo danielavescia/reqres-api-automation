@@ -19,8 +19,7 @@ public class RequestSpecFactory {
     public static RequestSpecification withoutApiKey(){
         return new RequestSpecBuilder() 
                 .setContentType(ContentType.JSON)
-                .build();
-             
+                .build();      
     }
 
     public static RequestSpecification withInvalidApiKey(){
