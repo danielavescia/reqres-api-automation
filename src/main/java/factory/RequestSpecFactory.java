@@ -11,6 +11,7 @@ public class RequestSpecFactory {
     public static RequestSpecification withValidApiKey() {
         
         return new RequestSpecBuilder()
+                .addHeader("User-Agent", "Mozilla/5.0")
                 .addHeader("x-api-key", ConfigManager.get("api.key"))
                 .setContentType(ContentType.JSON)
                 .build();
@@ -18,12 +19,14 @@ public class RequestSpecFactory {
 
     public static RequestSpecification withoutApiKey(){
         return new RequestSpecBuilder() 
+                .addHeader("User-Agent", "Mozilla/5.0")
                 .setContentType(ContentType.JSON)
                 .build();      
     }
 
     public static RequestSpecification withInvalidApiKey(){
         return new RequestSpecBuilder()
+            .addHeader("User-Agent", "Mozilla/5.0")
             .addHeader("x-api-key", "invalid-key")
             .setContentType(ContentType.JSON)
             .build();
