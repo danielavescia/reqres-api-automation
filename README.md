@@ -84,7 +84,7 @@ Os testes estão organizados por **tipo de validação** e classificados como:
 
 | ID   | Tipo      | Caso de Teste             | Resultado Esperado |
 | ---- | --------- | ------------------------- | ------------------ |
-| todos| Edge Case | Validar tempo de resposta | < 2000ms           |
+| todos| Edge Case | Validar tempo de resposta | < 2000s           |
 
 ---
 
