@@ -9,8 +9,8 @@ public class TestDataProvider {
     @DataProvider(name = "unathorizedRequests")
     public Object[][] unnathorizedRequests(){
         return new Object[][]{
-            {RequestSpecFactory.withoutApiKey(), 401,"The x-api-key header is required for this endpoint."},
-            {RequestSpecFactory.withInvalidApiKey(), 403, "This API key is not recognized or has been revoked."}
+            {RequestSpecFactory.withoutApiKey(), 401,"missing_api_key"},
+            {RequestSpecFactory.withInvalidApiKey(), 403, "invalid_api_key"}
         };
     }
 
