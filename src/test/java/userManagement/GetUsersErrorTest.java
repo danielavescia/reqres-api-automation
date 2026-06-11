@@ -9,20 +9,20 @@ import io.restassured.specification.ResponseSpecification;
 import provider.TestDataProvider;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import assertion.AuthAssertion;
+import assertion.Assertions;
 import base.BaseTest;
 import client.UserClient;
 import constant.TestConstant;
 
 public class GetUsersErrorTest extends BaseTest {
 
-        UserClient userClient = new UserClient();
-        ResponseSpecification responseSpec;
+    UserClient userClient = new UserClient();
+    ResponseSpecification responseSpec;
 
-        @BeforeMethod
-        public void setupSpecs() {
+    @BeforeMethod
+    public void setupSpecs() {
         responseSpec = ResponseSpecFactory.okContentTypeJson();
-        }
+    }
 
     @Test(description = "Deve retornar lista vazia para página inexistente", groups = "regression")
     public void shouldReturnEmptyListForNonExistingPage() {
@@ -32,12 +32,11 @@ public class GetUsersErrorTest extends BaseTest {
                 .body("data", empty());
     }
 
-    @Test(description = "Deve retornar 401 quando API Key estiver ausente e 403 quando inválida", dataProvider = "unathorizedRequests", dataProviderClass = TestDataProvider.class, groups = 
-            "regression")
+    @Test(description = "Deve retornar 401 quando API Key estiver ausente e 403 quando inválida", dataProvider = "unathorizedRequests", dataProviderClass = TestDataProvider.class, groups = "regression")
     public void shouldReturnErrorWhenApiKeyIsInvalidOrMissing(RequestSpecification request, int statusCode,
             String errorMessage) {
 
-        ValidatableResponse response =  userClient.getUsers(request, TestConstant.SECOND_PAGE);
-        AuthAssertion.assertAuthErrorResponse(response, statusCode, errorMessage);
+        ValidatableResponse response = userClient.getUsers(request, TestConstant.SECOND_PAGE);
+        Assertions.assertErrorResponse(response, statusCode, errorMessage);
     }
 }
