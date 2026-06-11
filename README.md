@@ -1,7 +1,7 @@
 # API Test Automation - ReqRes + RestAssured
 
-Projeto de automação de testes de API utilizando **RestAssured**, **TestNG** e **Hamcrest**, com foco na API pública do ReqRes: https://reqres.in/
-**Report Allure:** https://danielavescia.github.io/reqres-api-automation/
+* Projeto de automação de testes de API utilizando **RestAssured**, **TestNG** e **Hamcrest**, com foco na API pública do ReqRes: https://reqres.in/
+* **Report Allure:** https://danielavescia.github.io/reqres-api-automation/
 ---
 
 ## Tecnologias utilizadas
