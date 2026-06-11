@@ -4,16 +4,18 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.lessThan;
 import java.util.concurrent.TimeUnit;
 import constant.TestConstant;
+import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
 
-public class AuthAssertion {
+public class Assertions {
 
-    private AuthAssertion () {}
+    private Assertions () {}
 
-    public static void assertAuthErrorResponse(ValidatableResponse response, int expectedStatus, String expectedMessage){
+    public static void assertErrorResponse(ValidatableResponse response, int expectedStatus, String expectedMessage){
         response
             .statusCode(expectedStatus)
-            .body("message", equalTo(expectedMessage))
+            .body("error", equalTo(expectedMessage))
+            .contentType(ContentType.JSON)
             .time(lessThan(TestConstant.MAX_TIME_RESPONSE), TimeUnit.SECONDS);    
     }
 }
