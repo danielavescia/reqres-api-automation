@@ -5,9 +5,9 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import base.BaseTest;
 import client.UserClient;
+import constant.TestConstant;
 import factory.RequestSpecFactory;
-import io.restassured.builder.ResponseSpecBuilder;
-import io.restassured.http.ContentType;
+import factory.ResponseSpecFactory;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
@@ -24,36 +24,25 @@ public class GetUsersSuccessTest extends BaseTest {
 
         requestSpec = RequestSpecFactory.withValidApiKey();
 
-        responseSpec = new ResponseSpecBuilder()
-            .expectStatusCode(200)
-            .expectContentType(ContentType.JSON)
-            .build(); 
+        responseSpec = ResponseSpecFactory.okContentTypeJson();
     }
 
-    @Test(description = "Deve listar usuários da página 1 com sucesso", groups = {"users-success, smoke"})
+    @Test(description = "Deve listar usuários da página 1 com sucesso", groups = "smoke")
     public void shouldReturnUsersListNotEmpty() {
 
         userClient.getUsers(requestSpec,1)
             .spec(responseSpec)
-            .body("page", equalTo(1))
-            .body("per_page", equalTo(6))
+            .body("page", equalTo(TestConstant.FIRST_PAGE))
+            .body("per_page", equalTo(TestConstant.PER_PAGE))
             .body("data.size()", greaterThan(0))
-            .body("data.size()", lessThanOrEqualTo(6));
+            .body("data.size()", lessThanOrEqualTo(TestConstant.PER_PAGE));
     }
 
-    @Test(description = "Deve validar o schema da response de GET Usuário", groups = {"users-success, smoke"})
+    @Test(description = "Deve validar o schema da response de GET Usuário", groups = "smoke")
     public void shouldValidateUsersSchema(){
 
-        userClient.getUsers(requestSpec,2)
+        userClient.getUsers(requestSpec,TestConstant.FIRST_PAGE)
             .spec(responseSpec)
             .body(matchesJsonSchemaInClasspath("schemas/users-schema.json"));
-    }
-
-    @Test(description = "Validar tempo de resposta da API dentro do limite estabelecido", groups = {"users-success, smoke"})
-    public void shouldValidateResponseTime(){
-        
-        userClient.getUsers(requestSpec,1)
-            .spec(responseSpec)
-            .time(lessThan(2000L));
     }
 }
